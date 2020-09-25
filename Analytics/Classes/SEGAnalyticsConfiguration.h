@@ -46,8 +46,6 @@ typedef NSString *_Nonnull (^SEGAdSupportBlock)(void);
 @class SEGAnalyticsExperimental;
 @class SEGDestinationMiddleware;
 
-@class SEGAnalyticsExperimental;
-
 /**
  * This object provides a set of properties to control various policies of the analytics client. Other than `writeKey`, these properties can be changed at any time.
  */
@@ -151,7 +149,7 @@ NS_SWIFT_NAME(AnalyticsConfiguration)
 
 
 /**
- * Set the default settings to use if Segment.com cannot be reached.
+ * Set the default settings to use if Segment.com cannot be reached. 
  * An example configuration can be found here, using your write key:  https://cdn-settings.segment.com/v1/projects/YOUR_WRITE_KEY/settings
  */
 @property (nonatomic, strong, nullable) NSDictionary *defaultSettings;
@@ -248,7 +246,7 @@ NS_SWIFT_NAME(AnalyticsExperimental)
  Experimental support for nanosecond timestamps.  While the segment pipeline doesn't support this yet
  it can be useful where sub-milisecond precision is needed.  An example of this is at startup, when many events
  fire at the same time and end up with the same timestamp.  The format is "yyyy-MM-ddTHH:mm:ss.SSSSSSSSS:Z".
-
+ 
  This will show up only on the originalTimestamp value as seen in the segment debugger.  To properly sort this, one
  will need to sort by originalTimestamp as well as timestamp.  This should display events in the exact order they were
  received.

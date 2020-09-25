@@ -51,7 +51,7 @@ static SEGAnalytics *__sharedInstance = nil;
         // In swift this would not have been OK... But hey.. It's objc
         // TODO: Figure out if this is really the best way to do things here.
         self.integrationsManager = [[SEGIntegrationsManager alloc] initWithAnalytics:self];
-
+        
         if (configuration.edgeFunctionMiddleware) {
             configuration.sourceMiddleware = @[[configuration.edgeFunctionMiddleware sourceMiddleware]];
             configuration.destinationMiddleware = @[[configuration.edgeFunctionMiddleware destinationMiddleware]];
@@ -113,7 +113,7 @@ static SEGAnalytics *__sharedInstance = nil;
             }
         }
 #endif
-
+        
         [SEGState sharedInstance].configuration = configuration;
         [[SEGState sharedInstance].context updateStaticContext];
     }
@@ -232,21 +232,13 @@ NSString *const SEGBuildKeyV2 = @"SEGBuildKeyV2";
         @"version" : currentVersion ?: @"",
         @"build" : currentBuild ?: @"",
     }];
-
+    
     [[SEGState sharedInstance].context updateStaticContext];
 }
 
 - (void)_applicationDidEnterBackground
 {
   if (!self.oneTimeConfiguration.trackApplicationLifecycleEvents) {
-    return;
-  }
-  [self track: @"Application Backgrounded"];
-}
-
-- (void)_applicationDidEnterBackground
-{
-  if (!self.configuration.trackApplicationLifecycleEvents) {
     return;
   }
   [self track: @"Application Backgrounded"];
@@ -281,6 +273,7 @@ NSString *const SEGBuildKeyV2 = @"SEGBuildKeyV2";
 - (void)identify:(NSString *)userId traits:(NSDictionary *)traits options:(NSDictionary *)options
 {
     NSCAssert2(userId.length > 0 || traits.count > 0, @"either userId (%@) or traits (%@) must be provided.", userId, traits);
+    
     // this is done here to match functionality on android where these are inserted BEFORE being spread out amongst destinations.
     // it will be set globally later when it runs through SEGIntegrationManager.identify.
     NSString *anonId = [options objectForKey:@"anonymousId"];
@@ -305,7 +298,7 @@ NSString *const SEGBuildKeyV2 = @"SEGBuildKeyV2";
     // merge w/ existing traits and set them.
     [existingTraitsCopy addEntriesFromDictionary:traits];
     [SEGState sharedInstance].userInfo.traits = existingTraitsCopy;
-
+    
     [self run:SEGEventTypeIdentify payload:
                                        [[SEGIdentifyPayload alloc] initWithUserId:userId
                                                                       anonymousId:anonId
@@ -475,7 +468,7 @@ NSString *const SEGBuildKeyV2 = @"SEGBuildKeyV2";
     if (!self.oneTimeConfiguration.trackDeepLinks) {
         return;
     }
-
+    
     NSString *urlString = url.absoluteString;
     [SEGState sharedInstance].context.referrer = @{
         @"url" : urlString,
@@ -551,12 +544,13 @@ NSString *const SEGBuildKeyV2 = @"SEGBuildKeyV2";
     if (!self.enabled) {
         return;
     }
-
+    
     if (self.oneTimeConfiguration.experimental.nanosecondTimestamps) {
         payload.timestamp = iso8601NanoFormattedString([NSDate date]);
     } else {
         payload.timestamp = iso8601FormattedString([NSDate date]);
     }
+    
     SEGContext *context = [[[SEGContext alloc] initWithAnalytics:self] modify:^(id<SEGMutableContext> _Nonnull ctx) {
         ctx.eventType = eventType;
         ctx.payload = payload;
@@ -568,7 +562,7 @@ NSString *const SEGBuildKeyV2 = @"SEGBuildKeyV2";
             ctx.payload.anonymousId = [SEGState sharedInstance].userInfo.anonymousId;
         }
     }];
-
+    
     // Could probably do more things with callback later, but we don't use it yet.
     [self.runner run:context callback:nil];
 }

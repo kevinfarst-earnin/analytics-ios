@@ -101,6 +101,7 @@ NSString *const kSEGCachedSettingsFilename = @"analytics.settings.v2.plist";
         self.serialQueue = seg_dispatch_queue_create_specific("io.segment.analytics", DISPATCH_QUEUE_SERIAL);
         self.messageQueue = [[NSMutableArray alloc] init];
         self.httpClient = [[SEGHTTPClient alloc] initWithRequestFactory:configuration.requestFactory];
+        
         self.userDefaultsStorage = [[SEGUserDefaultsStorage alloc] initWithDefaults:[NSUserDefaults standardUserDefaults] namespacePrefix:nil crypto:configuration.crypto];
         #if TARGET_OS_TV
             self.fileStorage = [[SEGFileStorage alloc] initWithFolder:[SEGFileStorage cachesDirectoryURL] crypto:configuration.crypto];
@@ -217,7 +218,7 @@ NSString *const kSEGCachedSettingsFilename = @"analytics.settings.v2.plist";
 
     NSString *anonymousId = payload.anonymousId;
     NSString *existingAnonymousId = self.cachedAnonymousId;
-
+    
     if (anonymousId == nil) {
         payload.anonymousId = anonymousId;
     } else if (![anonymousId isEqualToString:existingAnonymousId]) {
@@ -228,7 +229,7 @@ NSString *const kSEGCachedSettingsFilename = @"analytics.settings.v2.plist";
                              arguments:@[ payload ]
                                options:payload.options
                                   sync:false];
-}*/
+}
 
 #pragma mark - Track
 
@@ -342,7 +343,7 @@ NSString *const kSEGCachedSettingsFilename = @"analytics.settings.v2.plist";
         [self.fileStorage setString:anonymousId forKey:kSEGAnonymousIdFilename];
 #endif
     }
-
+    
     return anonymousId;
 }
 
@@ -372,6 +373,7 @@ NSString *const kSEGCachedSettingsFilename = @"analytics.settings.v2.plist";
         _cachedSettings = [self.fileStorage dictionaryForKey:kSEGCachedSettingsFilename] ?: @{};
 #endif
     }
+    
     return _cachedSettings;
 }
 
@@ -382,6 +384,7 @@ NSString *const kSEGCachedSettingsFilename = @"analytics.settings.v2.plist";
         // [@{} writeToURL:settingsURL atomically:YES];
         return;
     }
+    
 #if TARGET_OS_TV
     [self.userDefaultsStorage setDictionary:_cachedSettings forKey:kSEGCachedSettingsFilename];
 #else
@@ -419,7 +422,7 @@ NSString *const kSEGCachedSettingsFilename = @"analytics.settings.v2.plist";
                 if (integration != nil) {
                     self.integrations[key] = integration;
                     self.registeredIntegrations[key] = @NO;
-
+                    
                     // setup integration middleware
                     NSArray<id<SEGMiddleware>> *middleware = [self middlewareForIntegrationKey:key];
                     self.integrationMiddleware[key] = [[SEGMiddlewareRunner alloc] initWithMiddleware:middleware];
@@ -496,6 +499,7 @@ NSString *const kSEGCachedSettingsFilename = @"analytics.settings.v2.plist";
     }
     if (options[key]) {
         id value = options[key];
+        
         // it's been observed that customers sometimes override this with
         // value's that aren't bool types.
         if ([value isKindOfClass:[NSNumber class]]) {
@@ -553,7 +557,7 @@ NSString *const kSEGCachedSettingsFilename = @"analytics.settings.v2.plist";
 {
     NSString *selectorString = NSStringFromSelector(selector);
     SEGEventType result = SEGEventTypeUndefined;
-
+    
     if ([selectorString hasPrefix:@"identify"]) {
         result = SEGEventTypeIdentify;
     } else if ([selectorString hasPrefix:@"track"]) {
@@ -598,7 +602,7 @@ NSString *const kSEGCachedSettingsFilename = @"analytics.settings.v2.plist";
         SEGLog(@"Not sending call to %@ because it is disabled in options.", key);
         return;
     }
-
+    
     SEGEventType eventType = [self eventTypeFromSelector:selector];
     if (eventType == SEGEventTypeTrack) {
         SEGTrackPayload *eventPayload = arguments[0];
@@ -631,7 +635,7 @@ NSString *const kSEGCachedSettingsFilename = @"analytics.settings.v2.plist";
             }
         }
     }
-
+    
     SEGLog(@"Running: %@ with arguments %@ on integration: %@", NSStringFromSelector(selector), newArguments, key);
     NSInvocation *invocation = [self invocationForSelector:selector arguments:newArguments];
     [invocation invokeWithTarget:integration];
