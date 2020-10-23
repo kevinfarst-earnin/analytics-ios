@@ -1,6 +1,14 @@
 Change Log
 ==========
-Version 4.0.5 (pre-release) (28 August, 2020)
+Version 4.1.0 *(19 October, 2020)*
+-----------------------------
+* [New](https://github.com/segmentio/analytics-ios/pull/945) Added Webhook Integration.
+* [New](https://github.com/segmentio/analytics-ios/pull/942) Renamed module from `Analytics` to `Segment`.
+* [Fix](https://github.com/segmentio/analytics-ios/pull/941) Removed unused mobile attribution.
+* [New](https://github.com/segmentio/analytics-ios/pull/940) Added ability for customer to make their types serializable.
+* [New](https://github.com/segmentio/analytics-ios/pull/950) Added necessary changes for Edge Functions.
+
+Version 4.0.5 (pre-release) *(28 August, 2020)*
 -----------------------------
 * [Fix](https://github.com/segmentio/analytics-ios/pull/937) Fixed issue where non-serializable types would get into payload.
 * [Fix](https://github.com/segmentio/analytics-ios/pull/931) Fixed double device payload.
@@ -8,26 +16,26 @@ Version 4.0.5 (pre-release) (28 August, 2020)
 * [Fix](https://github.com/segmentio/analytics-ios/pull/925) Disregard payloads that fail conversion from plist to json.
 * [New](https://github.com/segmentio/analytics-ios/pull/922) Added Swift and Carthage badging.
 
-Version 4.0.4 (pre-release) (14 July, 2020)
+Version 4.0.4 (pre-release) *(14 July, 2020)*
 -----------------------------
 * [New](https://github.com/segmentio/analytics-ios/pull/918) Added MacOS support.
 * [Fix](https://github.com/segmentio/analytics-ios/pull/921) Fixed SEGLog permissions.
 * [Fix](https://github.com/segmentio/analytics-ios/pull/920) Adopted Swift 5 syntax in tests. Removed SwiftTryCatch dependency for tests. Fixed deadlock from #916.
 
-Version 4.0.3 (pre-release) (6 July, 2020)
+Version 4.0.3 (pre-release) *(6 July, 2020)*
 -----------------------------
 * [Fix](https://github.com/segmentio/analytics-ios/pull/917) Fixed an issue with old traits overwriting new traits.
 * [New](https://github.com/segmentio/analytics-ios/pull/915) Added full example flow with Swift Package Manager compatibility.
 * [Fix](https://github.com/segmentio/analytics-ios/pull/914) Fix SwiftUI previews in macOS Catalyst builds.
 
-Version 4.0.2 (pre-release) (25 June, 2020)
+Version 4.0.2 (pre-release) *(25 June, 2020)*
 -----------------------------
 * [New](https://github.com/segmentio/analytics-ios/pull/913) Separate public utils from private utils appropriately.
 * [New](https://github.com/segmentio/analytics-ios/pull/912) Payload Info & Traits Fixes.
 * [New](https://github.com/segmentio/analytics-ios/pull/911) Updated SPM for code coverage compatibility.
 * [New](https://github.com/segmentio/analytics-ios/pull/909) Removed Quick and Nimble, updated unit tests.
 
-Version 4.0.1 (pre-release) (18 June, 2020)
+Version 4.0.1 (pre-release) *(18 June, 2020)*
 -----------------------------
  * [New](https://github.com/segmentio/analytics-ios/pull/905) Added global state management; Middleware now receive all context data.
  * [New](https://github.com/segmentio/analytics-ios/pull/885) change logic for screen naming conventions.
@@ -43,7 +51,7 @@ Version 4.0.0-beta.1 *(21st May, 2020)*
 Version 4.0.0-beta.0 *(22nd April, 2020)*
 -----------------------------------------
  * [New](https://github.com/segmentio/analytics-ios/pull/879) Added integration middleware functionality.
- 
+
 Version 3.9.0 *(5th June, 2020)*
 --------------------------------
  * [New](https://github.com/segmentio/analytics-ios/pull/897) Backport defaultSettings feature from 4.x to 3.x.
@@ -60,81 +68,11 @@ Version 3.8.1 *(12th May, 2020)*
  * [Fix](https://github.com/segmentio/analytics-ios/pull/865) Pushlishes filenames use for storage.
  * [Fix](https://github.com/segmentio/analytics-ios/pull/771) Fixes incorrect naming in screen reporting.
 
-Version 3.9.0 *(5th June, 2020)*
---------------------------------
-* [New](https://github.com/segmentio/analytics-ios/pull/897) Backport defaultSettings feature from 4.x to 3.x.
-* [Fix](https://github.com/segmentio/analytics-ios/pull/885) Automatic Screen Tracking with consistent naming conventions
-
-Version 3.8.2 *(21st May, 2020)*
---------------------------------
-* [Fix](https://github.com/segmentio/analytics-ios/pull/880) Adds check to make sure cached settings aren't empty before being used.
-
-
-Version 3.8.1 *(12th May, 2020)*
---------------------------------
- * [Fix](https://github.com/segmentio/analytics-ios/pull/880) Fixed a crash in the file storage.
- * [Fix](https://github.com/segmentio/analytics-ios/pull/884) Adds back erroneously removed build/version data from App Opened event.
- * [Fix](https://github.com/segmentio/analytics-ios/pull/865) Pushlishes filenames use for storage.
- * [Fix](https://github.com/segmentio/analytics-ios/pull/771) Fixes incorrect naming in screen reporting.
-
 Version 3.8.0 *(22nd April, 2020)*
 ----------------------------------
  * Promoting 3.8.x series to stable release.  This includes all changes since 3.7.
  * [Fix](https://github.com/segmentio/analytics-ios/pull/874) Implement maximum batch request size.
- 
-Version 3.8.0-beta.2 *(15th April, 2020)*
------------------------------------------
- * [Fix](https://github.com/segmentio/analytics-ios/pull/861) Move SEGQueue from UserDefaults to caches directory.
- * [Fix](https://github.com/segmentio/analytics-ios/pull/862) Fix issues around plist->json conversion and nil values.
- * [Fix](https://github.com/segmentio/analytics-ios/pull/851) Expect dictionary as well as bool for integration enablement.
- * [Fix](https://github.com/segmentio/analytics-ios/pull/864) Differences observed in how iOS/android pass userId/anonId; Corrected.
- * [Fix](https://github.com/segmentio/analytics-ios/pull/866) Look at previously cached settings before blowing them away.
- * [Fix](https://github.com/segmentio/analytics-ios/pull/876) Added experimental feature to enable nanosecond granularity on timestamps.
 
-Version 3.8.0-beta.1 *(7th January, 2020)*
-------------------------------------------
-
- * [Fix](https://github.com/segmentio/analytics-ios/pull/856) Reload static context data when the app returns from background.
- * [Fix](https://github.com/segmentio/analytics-ios/pull/855) Fixes issue where customers can overwrite information regarding integration enablement.
- * [Fix](https://github.com/segmentio/analytics-ios/pull/854) Swapped JSON in for the storage format instead of plists.
- * [Fix](https://github.com/segmentio/analytics-ios/pull/853) Hardened handling of user-supplied data in event properties.
- * [New](https://github.com/segmentio/analytics-ios/pull/839) Added support for SSL pinning.
- * [Fix](https://github.com/segmentio/analytics-ios/pull/842) CoreTelephony library is now only included on iOS targets.
-
-Version 3.8.0-beta.0 *(25th July, 2019)*
-----------------------------------------
-
- * [New](https://github.com/segmentio/analytics-ios/pull/831): Add iOS Backgrounded Event.
- * [Fix](https://github.com/segmentio/analytics-ios/pull/785): Fix GCD mutual dependency
- * [Fix](https://github.com/segmentio/analytics-ios/pull/): adding “name” field to payload; updated nimble to version 7.3.4
-
-Version 3.7.0 *(22nd July, 2019)*
----------------------------------
-
-This release promotes 3.7.0-beta.4 to stable.
-
-Version 3.9.0 *(5th June, 2020)*
---------------------------------
-* [New](https://github.com/segmentio/analytics-ios/pull/897) Backport defaultSettings feature from 4.x to 3.x.
-* [Fix](https://github.com/segmentio/analytics-ios/pull/885) Automatic Screen Tracking with consistent naming conventions
-
-Version 3.8.2 *(21st May, 2020)*
---------------------------------
-* [Fix](https://github.com/segmentio/analytics-ios/pull/880) Adds check to make sure cached settings aren't empty before being used.
-
-
-Version 3.8.1 *(12th May, 2020)*
---------------------------------
- * [Fix](https://github.com/segmentio/analytics-ios/pull/880) Fixed a crash in the file storage.
- * [Fix](https://github.com/segmentio/analytics-ios/pull/884) Adds back erroneously removed build/version data from App Opened event.
- * [Fix](https://github.com/segmentio/analytics-ios/pull/865) Pushlishes filenames use for storage.
- * [Fix](https://github.com/segmentio/analytics-ios/pull/771) Fixes incorrect naming in screen reporting.
-
-Version 3.8.0 *(22nd April, 2020)*
-----------------------------------
- * Promoting 3.8.x series to stable release.  This includes all changes since 3.7.
- * [Fix](https://github.com/segmentio/analytics-ios/pull/874) Implement maximum batch request size.
- 
 Version 3.8.0-beta.2 *(15th April, 2020)*
 -----------------------------------------
  * [Fix](https://github.com/segmentio/analytics-ios/pull/861) Move SEGQueue from UserDefaults to caches directory.
